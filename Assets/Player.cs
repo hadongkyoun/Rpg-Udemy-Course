@@ -8,11 +8,11 @@ public class Player : MonoBehaviour
     //Rigidbody2D를 가져오기 담을 용기를 준비하는 것
     //Unity Inspector에서 연결, 혹은 코드로 연결
     //public Rigidbody2D rb = this.GetComponent<Rigidbody2D>(); 
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
 
     //Control Speed
-    public float moveSpeed = 5.0f;
-    public float jumpForce = 7.0f;
+    [SerializeField]private float moveSpeed;
+    [SerializeField]private float jumpForce;
     private float xInput;
 
     // Start is called before the first frame update
