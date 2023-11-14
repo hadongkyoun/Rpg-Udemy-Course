@@ -11,16 +11,25 @@ public class Player : MonoBehaviour
     //Control Speed
     [SerializeField]private float moveSpeed;
     [SerializeField]private float jumpForce;
-    private bool doJump;
+
 
     //Input Value
     private float xInput;
     private int facingDir = 1;
     private bool facingRight = true;
+    private bool doJump;
+
 
     //Animator Control
     private Animator anim;
- 
+
+
+    [Header("Collision Info")]
+    [SerializeField] private float groundCheckDistance;
+    [SerializeField] private LayerMask whatIsGround;
+    private bool isGrounded;
+
+
 
     void Start()
     {
@@ -36,6 +45,10 @@ public class Player : MonoBehaviour
         //애니메이션
         AnimatorControllers();
         FlipController();
+
+        //충돌 감지
+        CollisionChecks();
+
     }
 
     void FixedUpdate()
@@ -55,7 +68,7 @@ public class Player : MonoBehaviour
         xInput = UnityEngine.Input.GetAxisRaw("Horizontal");
 
         //Press Jump Button
-        if (UnityEngine.Input.GetButtonDown("Jump"))
+        if (UnityEngine.Input.GetButtonDown("Jump") && isGrounded)
         {
             doJump = true;
         }
@@ -92,4 +105,12 @@ public class Player : MonoBehaviour
         else if(rb.velocity.x < 0 && facingRight)
             Flip();
     }
+
+    private void CollisionChecks()
+    {
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
+    }
+
+
+ 
 }
