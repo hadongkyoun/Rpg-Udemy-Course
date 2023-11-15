@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     [Header("Collision Info")]
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private LayerMask whatIsGround;
-    private bool isGrounded;
+    private bool isGrounded = true;
 
 
 
@@ -85,8 +85,11 @@ public class Player : MonoBehaviour
 
     private void AnimatorControllers()
     {
+        anim.SetFloat("yVelocity", rb.velocity.y);
+
         bool isMoving = rb.velocity.x != 0;
         anim.SetBool("isMoving", isMoving);
+        anim.SetBool("isGrounded", isGrounded);
     }
 
     private void Flip()
@@ -112,5 +115,11 @@ public class Player : MonoBehaviour
     }
 
 
- 
+    //// 라인으로 그라운드 체크
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));    
+    //}
+
+
 }
