@@ -12,6 +12,14 @@ public class Player : MonoBehaviour
     [SerializeField]private float moveSpeed;
     [SerializeField]private float jumpForce;
 
+    [Header("Dash info")]
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float dashDuration;
+    [SerializeField] private float dashCooldown;
+
+    private float dashTimer;
+    private float dashCooldownTimer;
+
 
     //Input Value
     private float xInput;
@@ -49,6 +57,11 @@ public class Player : MonoBehaviour
         //충돌 감지
         CollisionChecks();
 
+
+        dashTimer -= Time.deltaTime;
+        dashCooldownTimer -= Time.deltaTime;
+
+        
     }
 
     void FixedUpdate()
@@ -60,7 +73,11 @@ public class Player : MonoBehaviour
     }
     private void Movement()
     {
-        rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+        if(dashTimer > 0)
+            //공중에서 대쉬가 일직선으로 가게끔 y속도 0 설정
+            rb.velocity = new Vector2(xInput * dashSpeed, 0);
+        else
+            rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
     }
 
     private void CheckInput()
@@ -71,6 +88,21 @@ public class Player : MonoBehaviour
         if (UnityEngine.Input.GetButtonDown("Jump") && isGrounded)
         {
             doJump = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            DashAbility();
+        }
+
+    }
+
+    private void DashAbility()
+    {
+        if (dashCooldownTimer < 0)
+        {
+            dashTimer = dashDuration;
+            dashCooldownTimer = dashCooldown;
         }
     }
 
@@ -90,6 +122,8 @@ public class Player : MonoBehaviour
         bool isMoving = rb.velocity.x != 0;
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isGrounded", isGrounded);
+
+        anim.SetBool("isDashing", dashTimer>0);
     }
 
     private void Flip()
