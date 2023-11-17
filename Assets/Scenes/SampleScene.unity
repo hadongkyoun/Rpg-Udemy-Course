@@ -464,8 +464,10 @@ MonoBehaviour:
   moveSpeed: 8
   jumpForce: 12
   dashSpeed: 26
-  dashDuration: 0.24
+  dashDuration: 0.18
   dashCooldown: 1.4
+  comboTime: 1
+  attackMoveSpeed: 1
   groundCheckDistance: 1.36
   whatIsGround:
     serializedVersion: 2
