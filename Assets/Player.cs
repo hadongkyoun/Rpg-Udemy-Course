@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
 
 
-    //Control Speed
+    //Control
     [SerializeField]private float moveSpeed;
     [SerializeField]private float jumpForce;
 
@@ -19,6 +19,10 @@ public class Player : MonoBehaviour
 
     private float dashTimer;
     private float dashCooldownTimer;
+
+    [Header("Attack Info")]
+    private bool isAttacking;
+    private int comboCounter;
 
 
     //Input Value
@@ -90,9 +94,16 @@ public class Player : MonoBehaviour
             doJump = true;
         }
 
+        //Press Dash Button
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             DashAbility();
+        }
+
+        //Press Attack Button
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            isAttacking = true;
         }
 
     }
@@ -122,8 +133,9 @@ public class Player : MonoBehaviour
         bool isMoving = rb.velocity.x != 0;
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isGrounded", isGrounded);
-
         anim.SetBool("isDashing", dashTimer>0);
+        anim.SetBool("isAttacking", isAttacking);
+        anim.SetInteger("comboCounter", comboCounter);
     }
 
     private void Flip()
@@ -148,12 +160,17 @@ public class Player : MonoBehaviour
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
     }
 
+    public void AttackOver()
+    {
+        isAttacking = false;
+    }
+
 
     //// 라인으로 그라운드 체크
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));    
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));    
+    }
 
 
 }
