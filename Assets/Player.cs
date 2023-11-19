@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Timeline;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
 
-    private Rigidbody2D rb;
-
-
-    //Control
+    [Header("Move Info")]
     [SerializeField]private float moveSpeed;
     [SerializeField]private float jumpForce;
+    private float xInput;
+    private bool doJump;
 
     [Header("Dash info")]
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashDuration;
     [SerializeField] private float dashCooldown;
-
     private float dashTimer;
     private float dashCooldownTimer;
 
@@ -29,46 +27,27 @@ public class Player : MonoBehaviour
     private int comboCounter;
 
 
-    //Input Value
-    private float xInput;
-    private int facingDir = 1;
-    private bool facingRight = true;
-    private bool doJump;
 
-
-    //Animator Control
-    private Animator anim;
-
-    //렌더링
-    private SpriteRenderer playerRender;
-
-
-    [Header("Collision Info")]
-    [SerializeField] private float groundCheckDistance;
-    [SerializeField] private LayerMask whatIsGround;
-    private bool isGrounded = true;
-
-
-
-    void Start()
+    protected override void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
-        playerRender = GetComponent<SpriteRenderer>();
+        base.Start();
+        
+        //플레이어는 Ground 위에서 게임 시작
+        isGrounded = true;
+        //오른쪽 정면으로 보는 것으로 시작
+        facingDir = 1;
+        facingRight = true;
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         //입력 감지
         CheckInput();
         //애니메이션
         AnimatorControllers();
         FlipController();
-
-        //충돌 감지
-        CollisionChecks();
-
 
         dashTimer -= Time.deltaTime;
         dashCooldownTimer -= Time.deltaTime;
@@ -80,7 +59,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        //이동 확인
+        //움직임 확인
         Movement();
         //점프
         Jump();
@@ -112,10 +91,11 @@ public class Player : MonoBehaviour
 
     private void CheckInput()
     {
+        
         xInput = UnityEngine.Input.GetAxisRaw("Horizontal");
 
         //Press Jump Button
-        if (UnityEngine.Input.GetButtonDown("Jump") && isGrounded)
+        if (UnityEngine.Input.GetButtonDown("Jump") && isGrounded && !isAttacking)
         {
             doJump = true;
         }
@@ -178,26 +158,12 @@ public class Player : MonoBehaviour
 
     }
 
-    private void Flip()
-    {
-        //Switcher
-        facingDir = facingDir * -1;
-        facingRight = !facingRight;
-
-        transform.Rotate(0, 180, 0);
-    }
-
     private void FlipController()
     {
         if(rb.velocity.x > 0 && !facingRight)
             Flip();
         else if(rb.velocity.x < 0 && facingRight)
             Flip();
-    }
-
-    private void CollisionChecks()
-    {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
     }
 
     public void AttackOver()
@@ -209,12 +175,6 @@ public class Player : MonoBehaviour
         isAttacking = false;
     }
 
-
-    //// 라인으로 그라운드 체크
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));    
-    }
 
 
 }
