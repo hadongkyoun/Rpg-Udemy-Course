@@ -462,10 +462,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  jumpForce: 12
-  dashSpeed: 26
-  dashDuration: 0.18
-  dashCooldown: 1.4
+  jumpForce: 15
+  dashSpeed: 18
+  dashDuration: 0.28
+  dashCooldown: 1.75
   comboTime: 1
   attackMoveSpeed: 1
   groundCheckDistance: 1.36

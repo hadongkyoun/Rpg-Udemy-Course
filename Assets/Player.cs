@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class Player : MonoBehaviour
 {
@@ -38,6 +39,9 @@ public class Player : MonoBehaviour
     //Animator Control
     private Animator anim;
 
+    //렌더링
+    private SpriteRenderer playerRender;
+
 
     [Header("Collision Info")]
     [SerializeField] private float groundCheckDistance;
@@ -50,6 +54,7 @@ public class Player : MonoBehaviour
     {
         rb = this.GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
+        playerRender = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -75,7 +80,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        //좌,우 이동
+        //이동 확인
         Movement();
         //점프
         Jump();
@@ -170,6 +175,7 @@ public class Player : MonoBehaviour
         anim.SetBool("isDashing", dashTimer>0);
         anim.SetBool("isAttacking", isAttacking);
         anim.SetInteger("comboCounter", comboCounter);
+
     }
 
     private void Flip()
