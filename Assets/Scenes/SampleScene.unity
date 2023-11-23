@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 1423058543}
   - component: {fileID: 1423058547}
   - component: {fileID: 1423058548}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -729,7 +729,7 @@ Transform:
   m_GameObject: {fileID: 1427730881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.671444, y: -6.084054, z: 0}
+  m_LocalPosition: {x: 12.838157, y: -6.084054, z: 0}
   m_LocalScale: {x: 9.482202, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -847,8 +847,8 @@ Transform:
   m_GameObject: {fileID: 1625631194}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.312, y: -4.548, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 13.9, y: -4.548, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1466923109}
@@ -911,6 +911,10 @@ MonoBehaviour:
   wallCheck: {fileID: 867162630}
   wallCheckDistance: 0.5
   moveSpeed: 1
+  playerCheckDistance: 4
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!50 &1625631198
 Rigidbody2D:
   serializedVersion: 4
@@ -1192,7 +1196,7 @@ Transform:
   m_GameObject: {fileID: 1770810903}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.5137, y: -4.4, z: 0}
+  m_LocalPosition: {x: 10.48, y: 1.46, z: 0}
   m_LocalScale: {x: 4.8332863, y: 4.3681083, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1322,7 +1326,7 @@ Transform:
   m_GameObject: {fileID: 1812725992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.84997, y: -4.5043974, z: 0}
+  m_LocalPosition: {x: 20.016684, y: -4.5043974, z: 0}
   m_LocalScale: {x: 4.8748527, y: 4.1593127, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
