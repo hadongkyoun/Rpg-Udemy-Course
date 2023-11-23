@@ -34,6 +34,11 @@ public class Entity : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        
+    }
+
+    protected virtual void FixedUpdate()
+    {
         //충돌 감지
         CollisionChecks();
     }
@@ -53,9 +58,9 @@ public class Entity : MonoBehaviour
         transform.Rotate(0, 180, 0);
     }
 
-    protected virtual void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance * facingDir, wallCheck.position.y));
-    }
+    //protected virtual void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
+    //    Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance * facingDir, wallCheck.position.y));
+    //}
 }

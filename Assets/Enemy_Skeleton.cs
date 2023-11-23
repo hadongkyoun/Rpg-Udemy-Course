@@ -27,6 +27,16 @@ public class NewBehaviourScript : Entity
     {
         base.Update();
 
+        //바닥이 없을때 Flip
+        if (!isGrounded || isWallDetected)
+        {
+            Flip();
+        }
+
+    }
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
         //플레이어 감지했을때
         if (isPlayerDetected)
         {
@@ -40,19 +50,11 @@ public class NewBehaviourScript : Entity
             }
             else
             {
-                Debug.Log("ATTACK!" + isPlayerDetected);
                 isAttacking = true;
             }
         }
         else
             Movement();
-
-        //바닥이 없을때 Flip
-        if (!isGrounded || isWallDetected)
-        {
-            Flip();
-        }
-
     }
 
     private void Movement()
@@ -71,11 +73,11 @@ public class NewBehaviourScript : Entity
         isPlayerDetected = Physics2D.Raycast(transform.position, Vector2.right, playerCheckDistance * facingDir, whatIsPlayer);
     }
 
-    protected override void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + playerCheckDistance * facingDir, transform.position.y));
+    //protected override void OnDrawGizmos()
+    //{
+    //    base.OnDrawGizmos();
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + playerCheckDistance * facingDir, transform.position.y));
 
-    }
+    //}
 }

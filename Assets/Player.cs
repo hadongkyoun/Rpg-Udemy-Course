@@ -57,8 +57,9 @@ public class Player : Entity
         
     }
 
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         //움직임 확인
         Movement();
         //점프
